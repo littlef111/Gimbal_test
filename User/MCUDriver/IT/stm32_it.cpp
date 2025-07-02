@@ -7,6 +7,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+// 没有被使用，等待解决方案(core中的stm32f4xx_it.c的重定义)
+
 // void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 // {
 //     /* Prevent unused argument(s) compilation warning */
