@@ -371,6 +371,11 @@ void remotec::update()
 		is_online = 0;
 	}
 	else is_online = 1;
+	// 复位
+	if (RC_GetNewData >= 1000) {
+		RC_GetNewData = 51;
+	}
+
 	Swich_ControlMode();
 	portSetProtect();
 	portSetCarMode();

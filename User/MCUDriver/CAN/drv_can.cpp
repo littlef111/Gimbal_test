@@ -74,6 +74,10 @@ void Motor::update_angle() {
     } else {
         is_online = 1;
     }
+    // 复位
+    if (timer >= 1000) {
+        timer = 201;
+    }
 }
 
 void Motor::CanRcvLoop(CAN_HandleTypeDef *hcan,uint32_t Stdid, uint8_t *recvData) {
