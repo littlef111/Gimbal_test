@@ -27,7 +27,10 @@ typedef enum
 	CAN_SHOOT_SEND_ID = 0x200,
 
 	CAN_JUDGE_REC_ID = 0x405,
-	CAN_JUDGE_SUB_ID = 0x407
+	CAN_JUDGE_SUB_ID = 0x407,
+
+	CAN_CHASIS_COM1_ID = 0x107,
+	CAN_CHASIS_COM2_ID = 0x108,
 } CAN_Msg_enum;
 
 class Motor
@@ -113,7 +116,8 @@ class CAN
 	void PitchSendCurrent(int16_t current);
 	void ChasisSendVal(int16_t vx, int16_t vy, int16_t vz, int8_t car_mode, int8_t is_online);
 	void ChasisSendYaw(int16_t yaw, int16_t pitch,int8_t servo_status,int8_t fric_status,int8_t rammer_status ,int8_t is_redrawing);
-	void ShootSendCurrent(int16_t friLc, int16_t friRc, int16_t ramc, int16_t friUc);
+	void ShootSendCurrent(int16_t friLc, int16_t friRc, int16_t ramc, int16_t friUc);\
+	void ChasisSendCom1(int16_t vx, int16_t vy, int16_t yaw, int8_t car_mode, int8_t is_online);
  private:
 	// void Filter_Init(CAN_HandleTypeDef* hcan);
 

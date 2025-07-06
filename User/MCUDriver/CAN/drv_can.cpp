@@ -212,6 +212,28 @@ void CAN::ChasisSendYaw(int16_t yaw, int16_t pitch, int8_t servo_status, int8_t 
     CAN_TxMessage(&hcan2, &tx_msg, send_data);
 }
 
+void CAN::ChasisSendCom1(int16_t vx, int16_t vy, int16_t yaw, int8_t car_mode, int8_t is_online) {
+    CAN_TxHeaderTypeDef tx_msg;
+    uint32_t send_mail_box = 2;
+    uint8_t send_data[8];
+    tx_msg.StdId = CAN_CHASIS_COM1_ID;
+    tx_msg.IDE = CAN_ID_STD;
+    tx_msg.RTR = CAN_RTR_DATA;
+    tx_msg.DLC = 0x08;
+    send_data[0] = (vx >> 8);
+    send_data[1] = vx & 0xff;
+
+    send_data[2] = (vy >> 8);
+    send_data[3] = vy & 0xff;
+
+    send_data[4] = (yaw >> 8);
+    send_data[5] = yaw & 0xff;
+
+    send_data[6] = car_mode; //车的模式
+    send_data[7] = is_online; //自瞄状态
+    CAN_TxMessage(&hcan2, &tx_msg, send_data);
+}
+
 void CAN::ShootSendCurrent(int16_t friLc, int16_t friRc, int16_t ramc, int16_t friUc) {
     CAN_TxHeaderTypeDef tx_msg;
     uint32_t send_mail_box = 0;

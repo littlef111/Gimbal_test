@@ -15,6 +15,8 @@
 #include "slidingmodec.h"
 #include <complex.h>
 
+#include "usartio.h"
+
 gimbalc omni;
 ReceivePacket vision_pkt;
 gimbalc::gimbalc()
@@ -260,15 +262,16 @@ void gimbalc::ChassisComLoop()
 	}
 
 	if (MyRemote.rc_ctrl.Get_Key().R.Get_Now_State())fric_ram_status  = CRAZYRAMMER;
+	can.ChasisSendCom1(MyRemote.rc_ctrl.Get_RC().ch[2],MyRemote.rc_ctrl.Get_RC().ch[3], -(motors[0].Angel_Ecd - YawBias),MyRemote.rc_ctrl.Get_RC().s[0], is_online);
 	switch (CAN2_Status)
 	{
 	case 0:
-		can.ChasisSendVal(MyRemote.vx*2,MyRemote.vy*2, vz*0.8, 0,is_online ); //错开发送
+		// can.ChasisSendVal(MyRemote.vx*2,MyRemote.vy*2, vz*0.8, 0,is_online ); //错开发送
 		CAN2_Status = 1;
 		break;
 	case 1:
-		can.ChasisSendYaw(-(motors[0].Angel_Ecd - YawBias), 0, 0, shoot.GetFricStatus() & shoot.motors[1].is_online & shoot.motors[2].is_online, fric_ram_status & shoot.getpermit(), MyRemote.portIsRedrawing());//累计误差消除  portIsToSentry()机间通信没用
-		CAN2_Status = 0;
+		// can.ChasisSendYaw(-(motors[0].Angel_Ecd - YawBias), 0, 0, shoot.GetFricStatus() & shoot.motors[1].is_online & shoot.motors[2].is_online, fric_ram_status & shoot.getpermit(), MyRemote.portIsRedrawing());//累计误差消除  portIsToSentry()机间通信没用
+			CAN2_Status = 0;
 		break;
 	}
 }
